@@ -11,80 +11,18 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Actores extends ModelInstance implements InputProcessor {
-    public Model model;
-    public ModelInstance instance;
-    public Actores(){
+public class Actores extends ModelInstance {
+    public Actores() {
+        super(createModel());
+    }
+
+    private static Model createModel() {
         ModelLoader loader = new ObjLoader();
-        model = loader.loadModel(Gdx.files.internal("ship.obj"));
-        instance = new ModelInstance(model);
-        Gdx.input.setInputProcessor(this);
+        Model model = loader.loadModel(Gdx.files.internal("ship.obj"));
+        return model;
+    }
+    public void update(float delta) {
+        // Update the ship's position, rotation, or any other properties here
     }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha){
-        batch.draw(instance,getX(), getY(), 60, 60);
-    }
-
-    @Override
-    public void act(float delta) {
-        // Update the spaceship's logic here
-        super.act(delta);
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        switch (keycode){
-            case Input.Keys.UP:
-                setY(getY() + 5);
-                break;
-            case Input.Keys.RIGHT:
-                setX(getX() + 5);
-                break;
-            case Input.Keys.DOWN:
-                setY(getY() - 5);
-                break;
-            case Input.Keys.LEFT:
-                setX(getX() - 5);
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(float amountX, float amountY) {
-        return false;
-    }
 }
