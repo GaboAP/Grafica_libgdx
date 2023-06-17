@@ -3,20 +3,27 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.assets.loaders.ModelLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Actores extends Actor implements InputProcessor {
-    Texture image;
+public class Actores extends ModelInstance implements InputProcessor {
+    public Model model;
+    public ModelInstance instance;
     public Actores(){
-        image=new Texture (Gdx.files.internal("Space-Invaders-Ship.png"));
+        ModelLoader loader = new ObjLoader();
+        model = loader.loadModel(Gdx.files.internal("ship.obj"));
+        instance = new ModelInstance(model);
         Gdx.input.setInputProcessor(this);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha){
-        batch.draw(image,getX(), getY(), 60, 60);
+        batch.draw(instance,getX(), getY(), 60, 60);
     }
 
     @Override
